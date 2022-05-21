@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="Sales_Dashboard.UserControls.InfoCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Name="infoCard">
+    
+    <Border Style="{StaticResource whiteBorder}" Margin="10 0">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{Binding ElementName=infoCard,Path=Image}" Width="30" Height="30" Margin="0 0 10 0"/>
+                <TextBlock Text="{Binding ElementName=infoCard,Path=Title}" Style="{StaticResource titleText}"/>
+            </StackPanel>
+            <TextBlock Text="{Binding ElementName=infoCard,Path=SubTitle}" Style="{StaticResource secondaryText}"/>
+            <Slider Name="slider1" Style="{DynamicResource SliderStyle1}" Margin="0 5 0 0" IsSelectionRangeEnabled="True" Value="{Binding ElementName=infoCard,Path=Amount}" SelectionEnd="{Binding ElementName=slider1, Path=Value}"/>
+        </StackPanel>
+    </Border>
+</UserControl>

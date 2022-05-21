@@ -1,0 +1,326 @@
+﻿<Window x:Class="Sales_Dashboard.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:uc="clr-namespace:Sales_Dashboard.UserControls"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        WindowStartupLocation="CenterScreen" Background="Transparent"
+        WindowStyle="None" AllowsTransparency="True" Height="780" Width="1280">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+    </Window.Resources>
+
+    <Border CornerRadius="25" Padding="20" Background="#F7F6F4" MouseDown="Border_MouseDown" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="260"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="130"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Menu-->
+            <Border Grid.RowSpan="3" CornerRadius="25">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#FB7154" Offset="0"/>
+                        <GradientStop Color="#FB6161" Offset="0.8"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <StackPanel>
+                    <!--Logo-->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 30 0 10">
+
+                        <Grid>
+                            <Border Background="#ffffff" CornerRadius="50" Width="35" Height="35"/>
+
+                            <Border Width="35" Height="35" BorderThickness="3" BorderBrush="#ffffff" CornerRadius="50">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="10" Opacity="0.3"/>
+                                </Border.Effect>
+
+                                <Icon:PackIconMaterial Kind="SendOutline" Width="15" Height="15" Foreground="#FB7154" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="3 0 0 2">
+                                    <Icon:PackIconMaterial.LayoutTransform>
+                                        <RotateTransform Angle="-45"/>
+                                    </Icon:PackIconMaterial.LayoutTransform>
+                                </Icon:PackIconMaterial>
+
+                            </Border>
+                        </Grid>
+
+                        <TextBlock Text="Data" Foreground="#ffffff" FontSize="30" Margin="10 0 0 3">
+                            <TextBlock.Effect>
+                                <DropShadowEffect BlurRadius="10" Opacity="0.3"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </StackPanel>
+
+                    <!--Menu Items-->
+                    <TextBlock Text="Main" Style="{StaticResource menuTitle}"/>
+
+                    <Button Style="{StaticResource menuButton}" Background="#F7F6F4" Foreground="#FB7657">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="Home" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Dashboard" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource menuButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="ClipboardTextPlayOutline" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Leaderboard" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource menuButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="ClipboardFileOutline" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Spredsheets" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource menuButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="AccountCheckOutline" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Administration" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource menuButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="BasketPlusOutline" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Sales" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource menuButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="ProgressCheck" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Schedule" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </Button>
+
+                    <TextBlock Text="Help" Style="{StaticResource menuTitle}"/>
+
+                    <Button Style="{StaticResource menuButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="MessageSettingsOutline" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Messages" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource menuButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="CogOutline" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Settings" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource menuButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="PhonePausedOutline" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Support" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </Button>
+
+                </StackPanel>
+            </Border>
+
+            <!--Search-->
+            <Border Grid.Column="1" Style="{StaticResource whiteBorder}" Margin="20 0 20 20">
+                <Grid>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Border Width="50" Height="50" CornerRadius="10" Margin="5 0 20 0">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <GradientStop Color="#FB7456" Offset="0"/>
+                                    <GradientStop Color="#FA5654" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+
+                            <Image Source="/Images/u4.png" Width="40" Height="40"/>
+                        </Border>
+
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="Hello, Team" Style="{StaticResource titleText}" FontSize="26" FontWeight="Bold"/>
+                            <TextBlock Text="Have A Nice Day" Foreground="#6C879A" Margin="0 3 0 0"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!--Search Textbox-->
+                    <Grid Width="300" HorizontalAlignment="Right">
+
+                        <TextBlock Margin="15 0" VerticalAlignment="Center" Foreground="#868686" IsHitTestVisible="False" Panel.ZIndex="1" 
+                                   Text="Search here ..." 
+                                   Visibility="{Binding ElementName=textBoxSearch, Path=Text.IsEmpty, Converter={StaticResource BoolToVisConverter}}" />
+
+                        <TextBox Name="textBoxSearch" Style="{StaticResource searchTextbox}" />
+
+                        <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" Foreground="#FF6D46" HorizontalAlignment="Right" Margin="0 0 15 0" VerticalAlignment="Center"/>
+                    </Grid>
+
+                </Grid>
+            </Border>
+
+            <!--Info Cards-->
+            <Grid Grid.Column="1" Grid.Row="1" Margin="10 0 10 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <uc:InfoCard Grid.Column="0" Title="Sales" SubTitle="Compared To ($2464 Last Month)" Amount="3" Image="/Images/sale.png" />
+                <uc:InfoCard Grid.Column="1" Title="Purchase" SubTitle="Compared To ($1405 Last Month)" Amount="8" Image="/Images/purchase.png" />
+                <uc:InfoCard Grid.Column="2" Title="Return" SubTitle="Compared To ($3100 Last Month)" Amount="5" Image="/Images/return.png" />                
+            </Grid>
+
+            <!--Main Chart-->
+            <Border Grid.Column="1" Grid.Row="2" Style="{StaticResource whiteBorder}" Margin="20 20 20 0">
+                <Grid Margin="10 5">
+                    <!--Title-->
+                    <TextBlock Text="Sales Figures" Style="{StaticResource titleText}"/>
+
+                    <!--Legends-->
+                    <uc:Legends HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 8 10 0" />
+                    
+                    <!--Chart-->
+                    <lvc:CartesianChart Grid.Row="1" Margin="5 40 0 60" LegendLocation="None">
+                        <lvc:CartesianChart.DataTooltip>
+                            <lvc:DefaultTooltip Background="Red" Foreground="#ffffff" Opacity="0.7" BulletSize="10">
+                            </lvc:DefaultTooltip>
+                        </lvc:CartesianChart.DataTooltip>
+
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Foreground="#90A3B2" ShowLabels="True">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator StrokeThickness="0" Step="2"/>
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisX>
+
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis MinValue="40" MaxValue="350" Foreground="#90A3B2" ShowLabels="True">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator StrokeThickness="0"/>
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisY>
+
+                        <lvc:CartesianChart.Series>
+                            <lvc:LineSeries Values="50,120,110,160,150,180,120,170,165,180" Fill="Transparent" StrokeThickness="3" PointGeometrySize="0">
+                                <lvc:LineSeries.Stroke>
+                                    <LinearGradientBrush>
+                                        <GradientStop Color="#ffffff" Offset="0.06"/>
+                                        <GradientStop Color="#2889FC" Offset="0.5"/>
+                                        <GradientStop Color="#ffffff" Offset="0.93"/>
+                                    </LinearGradientBrush>
+                                </lvc:LineSeries.Stroke>
+                            </lvc:LineSeries>
+                            <lvc:LineSeries Values="170,240,200,220,220,270,200,260,200,240" Fill="Transparent" StrokeThickness="3" PointGeometrySize="0">
+                                <lvc:LineSeries.Stroke>
+                                    <LinearGradientBrush>
+                                        <GradientStop Color="#ffffff" Offset="0.06"/>
+                                        <GradientStop Color="#FE6C47" Offset="0.5"/>
+                                        <GradientStop Color="#ffffff" Offset="0.9"/>
+                                    </LinearGradientBrush>
+                                </lvc:LineSeries.Stroke>
+                            </lvc:LineSeries>
+                        </lvc:CartesianChart.Series>
+                    </lvc:CartesianChart>
+
+                    <!--Note Text-->
+                    <Grid VerticalAlignment="Bottom" Margin="10 0">
+                        <Icon:PackIconMaterial Kind="Information" Foreground="#F96654"/>
+                        <TextBlock TextWrapping="Wrap" Margin="30 0 0 0" LineHeight="18" Foreground="{StaticResource GreyColor}"
+                                   Text="Net Sales, Found on the income statement are used to calculate this ration Return and refunds must be backed out of total sales to measure the truly measure the firms assets ability to generate sales."/>
+                    </Grid>
+                    
+                </Grid>
+            </Border>
+
+            <!--Right Section-->
+            <Grid Grid.Column="2" Grid.RowSpan="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!--Sales List-->
+                <Border Style="{StaticResource whiteBorder}">
+                    <StackPanel>
+                        <TextBlock Text="Sales List" Style="{StaticResource titleText}"/>
+                        <TextBlock Text="This is the sales data with the most revenue for this month" TextWrapping="Wrap" Margin="0 10 0 10" Style="{StaticResource secondaryText}"/>
+
+                        <uc:UserCard Title="Reza Asadi" IsActive="True" UpPrice="$1256" DownPrice="$337" Image="/Images/u1.png"/>
+                        <uc:UserCard Title="Firman Jabber" UpPrice="$1049" DownPrice="$789" Image="/Images/u3.png"/>
+                        <uc:UserCard Title="John Doe" UpPrice="$1105" DownPrice="$459" Image="/Images/u1.png"/>
+                    </StackPanel>
+                </Border>
+
+                <!--Sales Report-->
+                <Border Grid.Row="1" Style="{StaticResource whiteBorder}" Margin="0 20 0 0">
+                    <Grid>
+                        <!--Title-->
+                        <TextBlock Text="Sales Report" Style="{StaticResource titleText}"/>
+
+                        <!--Chart-->
+                        <lvc:CartesianChart Grid.Row="1" Margin="0 40 0 30" LegendLocation="None">
+                            <lvc:CartesianChart.DataTooltip>
+                                <lvc:DefaultTooltip Background="#0074FF" Opacity="0.8" Foreground="#ffffff"/>
+                            </lvc:CartesianChart.DataTooltip>
+
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Foreground="#90A3B2" ShowLabels="True">
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator StrokeThickness="0" Step="1"/>
+                                    </lvc:Axis.Separator>
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisX>
+
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis MinValue="0" MaxValue="8" Foreground="#90A3B2" ShowLabels="True">
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator StrokeThickness="0" Step="2"/>
+                                    </lvc:Axis.Separator>
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisY>
+
+                            <lvc:CartesianChart.Series>
+                                <lvc:ColumnSeries Values="6.5,3,6,5" MaxColumnWidth="10">
+                                    <lvc:ColumnSeries.Fill>
+                                        <LinearGradientBrush>
+                                            <GradientStop Color="#2889FC" Offset="0"/>
+                                            <GradientStop Color="#ffffff" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </lvc:ColumnSeries.Fill>
+                                </lvc:ColumnSeries>
+
+                                <lvc:ColumnSeries Values="7.5,5,4,5.5" MaxColumnWidth="10">
+                                    <lvc:ColumnSeries.Fill>
+                                        <LinearGradientBrush>
+                                            <GradientStop Color="#FF6F4D" Offset="0"/>
+                                            <GradientStop Color="#ffffff" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </lvc:ColumnSeries.Fill>
+                                </lvc:ColumnSeries>
+                            </lvc:CartesianChart.Series>
+                        </lvc:CartesianChart>
+
+                        <!--Legends-->
+                        <uc:Legends HorizontalAlignment="Center" VerticalAlignment="Bottom" />
+                    
+                    </Grid>
+                </Border>
+            </Grid>
+
+        </Grid>
+    </Border>
+</Window>
